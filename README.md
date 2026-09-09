@@ -564,3 +564,141 @@ El flujo general del sistema puede resumirse de la siguiente manera:
 
 > **Una única fuente de información, múltiples criterios de análisis y múltiples resultados.**
 
+-----------------------------
+# Documentación Funcional
+
+## 1. Objetivo
+
+El objetivo de este documento es definir los principales elementos funcionales del sistema:
+
+- Entidades del dominio.
+- Relaciones entre entidades.
+- Posibles atributos y métodos.
+- Casos de uso.
+- Historias de usuario.
+- Reglas de negocio.
+- Funcionalidades principales.
+
+El sistema busca centralizar la información de facturación de la empresa y permitir utilizar una misma fuente de información para diferentes procesos administrativos, contables y fiscales.
+
+> **Principio central:** una única fuente de información, múltiples criterios de análisis y múltiples resultados.
+
+---
+
+# 2. Entidades principales
+
+Las principales entidades identificadas son:
+
+- `Usuario`
+- `Rol`
+- `Cliente`
+- `Contrato`
+- `Factura`
+- `NotaCredito`
+- `PeriodoServicio`
+- `PeriodoAnalisis`
+- `Provincia`
+- `CentroCosto`
+- `CuentaContable`
+- `ConceptoContable`
+- `DistribucionFactura`
+- `Asiento`
+- `Auditoria`
+
+---
+
+## 2.1 Usuario
+
+Representa a una persona autorizada a utilizar el sistema.
+
+### Atributos posibles
+
+- `id`
+- `nombre`
+- `apellido`
+- `email`
+- `passwordHash`
+- `activo`
+- `rol`
+
+### Métodos posibles
+
+- `autenticar()`
+- `cambiarPassword()`
+- `activar()`
+- `desactivar()`
+- `tienePermiso()`
+
+---
+
+## 2.2 Rol
+
+Representa un conjunto de permisos asignados a un usuario.
+
+### Atributos posibles
+
+- `id`
+- `nombre`
+- `descripcion`
+- `permisos`
+
+### Métodos posibles
+
+- `agregarPermiso()`
+- `quitarPermiso()`
+- `tienePermiso()`
+
+---
+
+## 2.3 Cliente
+
+Representa al cliente para el cual la empresa realiza obras o servicios.
+
+### Atributos posibles
+
+- `id`
+- `razonSocial`
+- `cuit`
+- `direccion`
+- `email`
+- `telefono`
+- `activo`
+
+### Métodos posibles
+
+- `crear()`
+- `actualizar()`
+- `activar()`
+- `desactivar()`
+- `obtenerContratos()`
+
+---
+
+## 2.4 Contrato
+
+Representa un contrato celebrado entre la empresa y un cliente.
+
+### Atributos posibles
+
+- `id`
+- `numero`
+- `descripcion`
+- `fechaInicio`
+- `fechaFin`
+- `cliente`
+- `activo`
+
+### Métodos posibles
+
+- `crear()`
+- `actualizar()`
+- `finalizar()`
+- `estaVigente()`
+- `obtenerFacturas()`
+
+### Relaciones
+
+Un cliente puede tener uno o varios contratos.
+
+```text
+Cliente 1 ─────── N Contrato
