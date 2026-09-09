@@ -702,3 +702,290 @@ Un cliente puede tener uno o varios contratos.
 
 ```text
 Cliente 1 ─────── N Contrato
+
+
+Historias de usuario
+
+HU-01 - Registrar cliente
+
+Como usuario administrativo, quiero registrar un cliente para poder asociarlo posteriormente a sus contratos.
+
+HU-02 - Registrar contrato
+
+Como usuario administrativo, quiero registrar un contrato asociado a un cliente para poder relacionar las facturas con el contrato correspondiente.
+
+HU-03 - Registrar factura
+
+Como usuario administrativo, quiero registrar una factura asociada a un contrato y período de servicio para centralizar la información de facturación.
+
+HU-04 - Distribuir factura
+
+Como usuario administrativo, quiero distribuir una factura entre provincias y centros de costo para poder obtener información agrupada según cada dimensión.
+
+HU-05 - Registrar nota de crédito
+
+Como usuario administrativo, quiero registrar una nota de crédito asociada a una factura para reflejar una disminución manteniendo la trazabilidad de la operación original.
+
+HU-06 - Gestionar períodos de servicio
+
+Como usuario administrativo, quiero crear períodos de servicio con fechas de inicio y finalización para clasificar correctamente las facturas independientemente del mes calendario.
+
+HU-07 - Crear período de análisis
+
+Como usuario administrativo, quiero seleccionar un período de análisis para determinar qué facturas deben utilizarse en un proceso determinado.
+
+HU-08 - Generar Asiento 7
+
+Como usuario del área administrativa/contable, quiero generar el Asiento 7 automáticamente para obtener las facturas correspondientes a la primera parte del período de servicio.
+
+HU-09 - Generar Asiento 13
+
+Como usuario del área administrativa/contable, quiero generar el Asiento 13 automáticamente para obtener la parte del período de servicio correspondiente al mes siguiente.
+
+HU-10 - Calcular Ingresos Brutos
+
+Como usuario del área administrativa/contable, quiero calcular Ingresos Brutos a partir de un período calendario para obtener el importe correspondiente agrupado por provincia y centro de costo.
+
+HU-11 - Configurar alícuotas
+
+Como usuario autorizado, quiero configurar las alícuotas de cada provincia para poder modificar los valores utilizados en el cálculo sin modificar el código del sistema.
+
+HU-12 - Gestionar cuentas contables
+
+Como usuario administrativo, quiero asociar conceptos con cuentas contables para generar información contable de forma configurable.
+
+HU-13 - Cerrar períodos
+
+Como usuario autorizado, quiero cerrar un período para evitar modificaciones posteriores sobre información ya procesada.
+
+HU-14 - Consultar reportes
+
+Como usuario administrativo, quiero consultar reportes de facturación, impuestos y resultados contables para analizar la información sin depender de múltiples planillas.
+
+HU-15 - Exportar información
+
+Como usuario administrativo, quiero exportar los resultados a Excel para continuar los procesos administrativos y contables.
+
+HU-16 - Consultar auditoría
+
+Como administrador, quiero consultar las operaciones realizadas por los usuarios para mantener la trazabilidad de las modificaciones.
+
+Casos de uso
+
+Los casos de uso deberían ser más detallados que las historias, porque describen actores, precondiciones y pasos de interacción con el sistema.
+
+CU-01 - Registrar factura
+
+Actor: Usuario administrativo.
+
+Objetivo: Registrar una nueva factura en el sistema.
+
+Precondiciones:
+
+El usuario debe estar autenticado.
+El usuario debe tener permisos.
+El contrato debe existir.
+El período de servicio debe estar abierto.
+
+Flujo principal:
+
+El usuario ingresa al módulo de facturación.
+Selecciona "Nueva factura".
+Selecciona el contrato.
+Ingresa número de factura.
+Ingresa fecha de emisión.
+Ingresa importe neto e IVA.
+Selecciona el período de servicio.
+Define las distribuciones por provincia y centro de costo.
+El sistema valida los datos.
+El sistema registra la factura.
+El sistema registra la operación en auditoría.
+
+Resultado: La factura queda almacenada y disponible para futuros análisis.
+
+CU-02 - Generar Asiento 7
+
+Actor: Usuario administrativo/contable.
+
+Objetivo: Generar automáticamente el Asiento 7.
+
+Precondiciones:
+
+Debe existir un período de servicio.
+Deben existir facturas asociadas.
+
+Flujo principal:
+
+El usuario selecciona el período de servicio.
+El sistema obtiene las facturas asociadas.
+El sistema analiza las fechas de emisión.
+Selecciona las facturas correspondientes al mes de inicio del período.
+Agrupa la información necesaria.
+Genera el Asiento 7.
+El usuario consulta el resultado.
+
+Ejemplo:
+
+Período de servicio:
+14/05 → 14/06
+
+Facturas:
+14/05 → 31/05
+
+Resultado:
+Asiento 7
+CU-03 - Generar Asiento 13
+
+Actor: Usuario administrativo/contable.
+
+Objetivo: Generar la parte restante del período de servicio.
+
+Flujo principal:
+
+El usuario selecciona el período de servicio.
+El sistema obtiene las facturas correspondientes.
+Identifica las facturas cuya fecha de emisión corresponde al mes siguiente.
+Calcula la parte correspondiente.
+Genera el Asiento 13.
+El usuario consulta el resultado.
+
+Ejemplo:
+
+Período:
+14/05 → 14/06
+
+Facturas:
+01/06 → 14/06
+
+Resultado:
+Asiento 13
+CU-04 - Calcular Ingresos Brutos
+
+Actor: Usuario administrativo/contable.
+
+Objetivo: Calcular el importe de Ingresos Brutos para un período calendario.
+
+Precondiciones:
+
+Debe existir un período de análisis.
+Deben existir facturas correspondientes.
+Las provincias deben tener configuradas sus alícuotas.
+
+Flujo principal:
+
+El usuario selecciona el período de análisis.
+El sistema obtiene las facturas correspondientes.
+Agrupa las facturas por provincia.
+Agrupa la información por centro de costo.
+Obtiene la alícuota correspondiente a cada provincia.
+Calcula el impuesto.
+Genera el resultado.
+Asocia el resultado con el concepto contable correspondiente.
+El usuario consulta el resultado.
+
+Ejemplo:
+
+Provincia A
+Facturación: $1.000.000
+Alícuota: 3,5%
+IIBB: $35.000
+
+Provincia B
+Facturación: $500.000
+Alícuota: 4%
+IIBB: $20.000
+CU-05 - Crear período de análisis
+
+Actor: Usuario administrativo.
+
+Objetivo: Definir qué información será utilizada por un proceso.
+
+Flujo:
+
+El usuario selecciona "Nuevo período de análisis".
+Ingresa fecha de inicio.
+Ingresa fecha de finalización.
+Selecciona el tipo de período.
+Define el criterio.
+El sistema valida el rango.
+El sistema guarda el período.
+
+Resultado: El período queda disponible para ejecutar procesos.
+
+CU-06 - Distribuir factura
+
+Actor: Usuario administrativo.
+
+Objetivo: Distribuir el importe de una factura entre diferentes provincias y centros de costo.
+
+Flujo:
+
+El usuario selecciona una factura.
+Selecciona una provincia.
+Selecciona un centro de costo.
+Ingresa importe o porcentaje.
+Puede agregar otra distribución.
+El sistema valida la distribución.
+Guarda las distribuciones.
+CU-07 - Registrar nota de crédito
+
+Actor: Usuario administrativo.
+
+Objetivo: Registrar una disminución asociada a una factura.
+
+Flujo:
+
+El usuario selecciona la factura.
+Selecciona "Nueva nota de crédito".
+Ingresa número.
+Ingresa fecha.
+Ingresa importe.
+Ingresa motivo.
+El sistema valida los datos.
+Guarda la nota de crédito.
+Mantiene la factura original.
+Registra la operación en auditoría.
+CU-08 - Cerrar período
+
+Actor: Usuario autorizado.
+
+Objetivo: Evitar modificaciones sobre información ya procesada.
+
+Flujo:
+
+El usuario selecciona el período.
+Selecciona "Cerrar período".
+El sistema verifica que pueda cerrarse.
+Cambia el estado a "Cerrado".
+Registra la operación.
+
+Resultado: Las modificaciones posteriores quedan restringidas.
+
+CU-09 - Generar reporte
+
+Actor: Usuario administrativo.
+
+Objetivo: Consultar información procesada.
+
+Flujo:
+
+El usuario selecciona el tipo de reporte.
+Selecciona período.
+Puede seleccionar contrato.
+Puede seleccionar provincia.
+Puede seleccionar centro de costo.
+El sistema procesa los filtros.
+Genera el reporte.
+El usuario consulta los resultados.
+CU-10 - Exportar reporte
+
+Actor: Usuario administrativo.
+
+Objetivo: Obtener la información en Excel.
+
+Flujo:
+
+El usuario genera un reporte.
+Selecciona "Exportar".
+El sistema genera el archivo.
+El sistema entrega el archivo Excel.
