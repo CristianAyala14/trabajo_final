@@ -40,6 +40,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
 
+<<<<<<< HEAD
 const {
   Cliente,
   Contrato,
@@ -193,6 +194,12 @@ Comprobante.belongsTo(Comprobante, {
   foreignKey: "facturaOrigenId",
   as: "facturaOrigen",
 });
+=======
+const {} = sequelize.models;
+
+// Aca vendrian las relaciones
+
+>>>>>>> 052609eea48a35f9d2b6f1ea8c2f990287327643
 
 
 module.exports = {
