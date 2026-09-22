@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "Comprobante",
+    "comprobante",
     {
       id: {
         type: DataTypes.BIGINT,
@@ -13,17 +13,11 @@ module.exports = (sequelize) => {
       tipo: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-          isIn: [["FACTURA", "NOTA_CREDITO", "NOTA_DEBITO"]],
-        },
       },
 
       numero: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-          notEmpty: true,
-        },
       },
 
       fechaEmision: {
@@ -65,27 +59,18 @@ module.exports = (sequelize) => {
         type: DataTypes.DECIMAL,
         allowNull: false,
         field: "importe_neto",
-        validate: {
-          min: 0,
-        },
       },
 
       importeIva: {
         type: DataTypes.DECIMAL,
         allowNull: false,
         field: "importe_iva",
-        validate: {
-          min: 0,
-        },
       },
 
       estado: {
         type: DataTypes.STRING,
         allowNull: false,
         defaultValue: "BORRADOR",
-        validate: {
-          isIn: [["BORRADOR", "CONFIRMADO", "ANULADO"]],
-        },
       },
 
       importeTotal: {

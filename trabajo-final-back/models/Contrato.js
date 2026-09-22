@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "Contrato",
+    "contrato",
     {
       id: {
         type: DataTypes.BIGINT,
@@ -19,9 +19,6 @@ module.exports = (sequelize) => {
       numero: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-          notEmpty: true,
-        },
       },
 
       descripcion: {

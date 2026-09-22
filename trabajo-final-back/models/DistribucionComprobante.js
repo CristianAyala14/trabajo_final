@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "DistribucionComprobante",
+    "distribucionComprobante",
     {
       id: {
         type: DataTypes.BIGINT,
@@ -32,9 +32,6 @@ module.exports = (sequelize) => {
         type: DataTypes.DECIMAL,
         allowNull: false,
         field: "importe_neto",
-        validate: {
-          min: 0.0000001,
-        },
       },
     },
     {

@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "Cliente",
+    "cliente",
     {
       id: {
         type: DataTypes.BIGINT,
@@ -13,15 +13,12 @@ module.exports = (sequelize) => {
       nombre: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-          notEmpty: true,
-        },
       },
 
       identificacionFiscal: {
         type: DataTypes.STRING,
-        allowNull: true,
         unique: true,
+        allowNull: true,
         field: "identificacion_fiscal",
       },
 

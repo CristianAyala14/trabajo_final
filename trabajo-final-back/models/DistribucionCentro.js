@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "DistribucionFiscalAnterior",
+    "distribucionCentro",
     {
       id: {
         type: DataTypes.BIGINT,
@@ -16,22 +16,19 @@ module.exports = (sequelize) => {
         field: "comprobante_id",
       },
 
-      categoriaFiscalId: {
+      centroCostoId: {
         type: DataTypes.BIGINT,
         allowNull: false,
-        field: "categoria_fiscal_id",
+        field: "centro_costo_id",
       },
 
       importe: {
         type: DataTypes.DECIMAL,
         allowNull: false,
-        validate: {
-          min: 0,
-        },
       },
     },
     {
-      tableName: "distribucion_fiscal_anterior",
+      tableName: "distribucion_centro_anterior",
       timestamps: false,
     }
   );

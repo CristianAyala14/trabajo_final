@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "CategoriaFiscal",
+    "categoriaFiscal",
     {
       id: {
         type: DataTypes.BIGINT,
@@ -20,9 +20,6 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
-        validate: {
-          notEmpty: true,
-        },
       },
 
       imponible: {
@@ -34,10 +31,6 @@ module.exports = (sequelize) => {
       alicuota: {
         type: DataTypes.DECIMAL,
         allowNull: true,
-        validate: {
-          min: 0,
-          max: 1,
-        },
       },
     },
     {
