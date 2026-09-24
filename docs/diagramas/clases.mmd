@@ -1,0 +1,127 @@
+classDiagram
+    direction TB
+
+    class Cliente {
+        +Id id
+        +String nombre
+        +String razonSocial
+        +String identificacionFiscal
+        +String telefono
+        +String domicilio
+        +String email
+        +Boolean activo
+        +actualizarContacto(telefono, domicilio, email) void
+        +activar() void
+        +desactivar() void
+    }
+
+    class Contrato {
+        +Id id
+        +String numero
+        +String descripcion
+        +Fecha fechaInicio
+        +Fecha fechaFin
+        +Boolean activo
+        +validarFechas() Boolean
+        +cambiarCuentaSugerida(cuenta) void
+        +desactivar() void
+    }
+
+    class PeriodoServicio {
+        +Id id
+        +String nombre
+        +Fecha fechaInicio
+        +Fecha fechaFin
+        +validarRango() Boolean
+        +contiene(fecha) Boolean
+    }
+
+    class CuentaContable {
+        +Id id
+        +String codigo
+        +String nombre
+        +Boolean activo
+        +renombrar(nombre) void
+        +activar() void
+        +desactivar() void
+    }
+
+    class Comprobante {
+        +Id id
+        +TipoComprobante tipo
+        +String numero
+        +Fecha fechaEmision
+        +String descripcion
+        +Decimal importeNeto
+        +Decimal importeIva
+        +EstadoComprobante estado
+        +calcularTotal() Decimal
+        +obtenerSigno() Integer
+        +obtenerNetoFirmado() Decimal
+        +agregarDistribucion(categoria, centro, importe) void
+        +quitarDistribucion(distribucionId) void
+        +calcularDiferenciaDistribucion() Decimal
+        +tieneDistribucionCompleta() Boolean
+    }
+
+    class Provincia {
+        +Id id
+        +String nombre
+        +renombrar(nombre) void
+    }
+
+    class CategoriaFiscal {
+        +Id id
+        +String nombre
+        +Boolean imponible
+        +Decimal alicuota
+        +configurarAlicuota(tasa) void
+        +tieneTasaPendiente() Boolean
+        +calcularImpuesto(neto) Decimal
+    }
+
+    class CentroCosto {
+        +Id id
+        +String codigo
+        +String nombre
+        +Boolean activo
+        +renombrar(nombre) void
+        +activar() void
+        +desactivar() void
+    }
+
+    class DistribucionComprobante {
+        +Id id
+        +Decimal importeNeto
+        +cambiarImporte(importe) void
+        +obtenerNetoFirmado() Decimal
+        +calcularImpuestoFirmado() Decimal
+    }
+
+    class TipoComprobante {
+        <<enumeration>>
+        FACTURA
+        NOTA_CREDITO
+        NOTA_DEBITO
+    }
+
+    class EstadoComprobante {
+        <<enumeration>>
+        BORRADOR
+        CONFIRMADO
+        ANULADO
+    }
+
+    Cliente "1" -- "0..*" Contrato : titular
+    Provincia "0..1" -- "0..*" Cliente : domicilio
+    CuentaContable "0..1" -- "0..*" Contrato : cuenta sugerida
+    Contrato "1" -- "0..*" Comprobante : contrato
+    PeriodoServicio "1" -- "0..*" Comprobante : servicio
+    CuentaContable "1" -- "0..*" Comprobante : cuenta efectiva
+    Comprobante "0..1" <-- "0..*" Comprobante : factura origen
+    Provincia "0..1" -- "0..*" CategoriaFiscal : jurisdiccion
+    Comprobante "1" *-- "0..*" DistribucionComprobante : distribuciones
+    CategoriaFiscal "1" -- "0..*" DistribucionComprobante : categoria
+    CentroCosto "1" -- "0..*" DistribucionComprobante : centro
+    Comprobante ..> TipoComprobante : tipo
+    Comprobante ..> EstadoComprobante : estado
