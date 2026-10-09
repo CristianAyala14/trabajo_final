@@ -16,7 +16,11 @@ La documentación describe el comportamiento esperado. El [estado del desarrollo
 
 - Frontend: React, TypeScript y Vite.
 - Backend: Node.js, Express y Sequelize.
+<<<<<<< HEAD
 - Base de datos: PostgreSQL en Supabase.
+=======
+- Base de datos: PostgreSQL.
+>>>>>>> rama_Cris
 
 ## Documentación
 

@@ -1,4 +1,77 @@
 erDiagram
+    direction TB
+    cliente {
+        varchar_200 razon_social "opcional"
+        varchar_40 telefono "opcional"
+        text domicilio "opcional"
+        varchar_254 email "opcional"
+        bigint provincia_id FK "opcional"
+        bigint id PK "obligatorio"
+        varchar_200 nombre "obligatorio"
+        varchar_30 identificacion_fiscal UK "opcional"
+        boolean activo "obligatorio"
+    }
+    contrato {
+        date fecha_inicio "opcional"
+        date fecha_fin "opcional"
+        bigint cuenta_contable_id FK "opcional"
+        bigint id PK "obligatorio"
+        bigint cliente_id FK "obligatorio"
+        varchar_80 numero "obligatorio"
+        text descripcion "opcional"
+        boolean activo "obligatorio"
+    }
+    periodo_servicio {
+        bigint id PK "obligatorio"
+        varchar_80 nombre "obligatorio"
+        date fecha_inicio "obligatorio"
+        date fecha_fin "obligatorio"
+    }
+    cuenta_contable {
+        bigint id PK "obligatorio"
+        varchar_40 codigo UK "obligatorio"
+        varchar_150 nombre "obligatorio"
+        boolean activo "obligatorio"
+    }
+    comprobante {
+        numeric_21_2 importe_total "generado neto mas IVA"
+        bigint id PK "obligatorio"
+        varchar_20 tipo "obligatorio"
+        varchar_80 numero "obligatorio"
+        date fecha_emision "obligatorio"
+        bigint contrato_id FK "obligatorio"
+        bigint periodo_servicio_id FK "obligatorio"
+        bigint cuenta_contable_id FK "obligatorio"
+        bigint factura_origen_id FK "opcional"
+        text descripcion "opcional"
+        numeric_20_2 importe_neto "obligatorio"
+        numeric_20_2 importe_iva "obligatorio"
+        varchar_20 estado "obligatorio"
+    }
+    provincia {
+        bigint id PK "obligatorio"
+        varchar_100 nombre UK "obligatorio"
+    }
+    categoria_fiscal {
+        bigint id PK "obligatorio"
+        bigint provincia_id FK "opcional"
+        varchar_120 nombre UK "obligatorio"
+        boolean imponible "obligatorio"
+        numeric_9_6 alicuota "opcional"
+    }
+    centro_costo {
+        bigint id PK "obligatorio"
+        varchar_30 codigo UK "obligatorio"
+        varchar_150 nombre "obligatorio"
+        boolean activo "obligatorio"
+    }
+    distribucion_comprobante {
+        bigint id PK "obligatorio"
+        bigint comprobante_id FK "obligatorio"
+        bigint categoria_fiscal_id FK "obligatorio"
+        bigint centro_costo_id FK "obligatorio"
+        numeric_20_2 importe_neto "obligatorio"
+    }
     provincia o|--o{ cliente : domicilio
     cliente ||--o{ contrato : posee
     cuenta_contable o|--o{ contrato : sugiere

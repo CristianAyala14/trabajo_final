@@ -7,7 +7,7 @@ La solución utilizará una arquitectura cliente-servidor:
 ```mermaid
 flowchart TD
     UI[React con TypeScript y Vite] --> API[API REST con Node.js y Express]
-    API --> DB[(PostgreSQL en Supabase)]
+    API --> DB[(PostgreSQL)]
 ```
 
 - **Frontend:** formularios, tablas, filtros, detalle de comprobantes y presentación de reportes.

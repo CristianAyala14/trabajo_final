@@ -29,7 +29,7 @@ La diferencia es neto del comprobante menos suma distribuida. Una distribución 
 
 v_distribucion_importes presenta una fila por distribución, con identificadores del documento, contrato, período, cuenta, categoría, provincia y centro; datos de emisión y estado; imponible, alicuota, importe_neto, neto_firmado, impuesto y tasa_faltante. También expone nombres y código del centro para su presentación.
 
-La vista incluye todos los estados. El consumidor debe filtrar estado = CONFIRMADO para informes definitivos. Si falta una tasa imponible, impuesto resulta NULL; no debe reemplazarse por cero. Ambas vistas utilizan security_invoker y respetan los permisos del consultante y las políticas aplicables.
+La vista incluye todos los estados. El consumidor debe filtrar estado = CONFIRMADO para informes definitivos. Si falta una tasa imponible, impuesto resulta NULL; no debe reemplazarse por cero. El backend consulta ambas vistas mediante su conexión a PostgreSQL. El usuario técnico de esa conexión debe contar con los permisos necesarios sobre las vistas y, cuando utilicen security_invoker, sobre las tablas subyacentes. El MVP no depende de políticas RLS para conectar el frontend.
 
 ## Período operativo y mes de emisión
 

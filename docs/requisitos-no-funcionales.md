@@ -34,7 +34,7 @@ La aplicación deberá funcionar en Chrome y Edge en las versiones registradas a
 
 ## RNF08 Protección técnica de los datos
 
-El MVP no tendrá módulos de usuarios, roles ni auditoría, pero las credenciales privilegiadas deberán permanecer en el servidor. La clave publicable no equivale a una credencial administrativa. Las tablas conservarán RLS y no se abrirán políticas públicas de escritura para conectar el frontend. Una instalación sin autenticación se limitará a un entorno local o acceso restringido; publicar un backend privilegiado de acceso libre queda fuera de esta configuración.
+El MVP no tendrá módulos de usuarios, roles ni auditoría. Las credenciales de conexión a PostgreSQL deberán permanecer en el backend, configuradas mediante variables de entorno y sin incluirse en el repositorio ni en el navegador. El frontend accederá a los datos a través de la API; no se conectará directamente a PostgreSQL. La conexión de la aplicación utilizará un usuario de base de datos con los permisos necesarios, sin privilegios de superusuario. Una instalación sin autenticación se limitará a un entorno local o de acceso restringido. Estos permisos técnicos de PostgreSQL no agregan un módulo de roles de negocio.
 
 Verificación: revisar que los archivos del navegador no contienen secretos y que una solicitud pública no autorizada no puede leer ni modificar datos. Si se publica el servicio, deberá utilizar transporte cifrado y definirse el control de acceso de infraestructura antes de su exposición. Esto no agrega tablas de permisos al modelo.
 
@@ -44,7 +44,7 @@ El backend deberá validar tipos, longitudes, valores permitidos, referencias y 
 
 ## RNF10 Recuperación
 
-Objetivo propuesto: contar con una copia recuperable diaria y poder restaurar en hasta 4 horas, con una pérdida máxima de 24 horas de datos. Verificación: restaurar una copia en un entorno separado y contrastar cantidades, totales y relaciones. La disponibilidad de copias en Supabase deberá comprobarse según la configuración elegida; no se presupone que estén habilitadas.
+Objetivo propuesto: contar con una copia recuperable diaria y poder restaurar en hasta 4 horas, con una pérdida máxima de 24 horas de datos. Verificación: restaurar una copia en un entorno separado y contrastar cantidades, totales y relaciones. Las copias de PostgreSQL deberán programarse y supervisarse en el entorno de despliegue elegido. Se comprobará su restauración; no se presupone un servicio de copias automáticas.
 
 ## RNF11 Mantenibilidad y evolución
 

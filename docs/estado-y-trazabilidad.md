@@ -18,3 +18,9 @@
 El diseño de la base de datos incluye nueve tablas, claves, controles locales, índices y dos vistas. Aún deben implementarse y probarse las reglas transaccionales entre registros, el circuito completo de estados y los informes de la aplicación. La interfaz inicial de comprobantes trabajó con datos de demostración y permitió búsqueda, filtros y detalle; no acredita conexión real, altas persistentes, exportación ni cumplimiento de todos estos requisitos.
 
 La validación técnica de aceptación debe cubrir RNF01, RNF02 y RNF03 especialmente en RF07 a RF10; RNF04 en las consultas RF11 a RF15; RNF05 a RNF09 en todas las pantallas y servicios; y RNF10 a RNF12 en instalación, mantenimiento e informes.
+
+## Actualización documental de la segunda entrega
+
+Se completaron el DER y la verificación del diagrama de clases. La plataforma documentada es PostgreSQL. Esta revisión es documental; no acredita ejecución de pruebas ni despliegue. La descripción de la interfaz inicial corresponde a la entrega previamente revisada.
+
+- [Validación de diagramas](diagramas/validacion.md).

@@ -246,3 +246,11 @@ Los asientos 7 y 13 seleccionan por período de servicio y fecha de emisión; el
 | DistribucionComprobante | distribucion_comprobante |
 
 El [diccionario de datos](../base-de-datos.md) documenta campos y restricciones. El [archivo Mermaid](clases.mmd) permite editar el diagrama principal.
+
+## Verificación de correspondencia
+
+Las nueve clases persistentes se corresponden con las nueve tablas. Las once asociaciones representan las FK; `calcularTotal()` representa el campo generado `importe_total`. Las enumeraciones expresan dominios controlados mediante CHECK en la base, no tablas ni tipos ENUM físicos nuevos. Los servicios y objetos de respuesta no agregan tablas.
+
+Véase el [registro de validación](validacion.md) para el alcance de las comprobaciones.
+
+[Abrir clases como imagen ampliable](clases.svg).

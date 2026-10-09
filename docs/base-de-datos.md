@@ -4,7 +4,7 @@
 
 ## Tecnología y convenciones
 
-El diseño utiliza PostgreSQL en Supabase, esquema public y nombres en snake_case. Cada tabla tiene una clave primaria id de tipo bigint generada por identidad. Los importes monetarios utilizan numeric para preservar precisión; las fechas de negocio se almacenan como date, sin hora. Los códigos e identificaciones se guardan como texto para conservar su formato.
+El diseño utiliza PostgreSQL, esquema public y nombres en snake_case. Cada tabla tiene una clave primaria id de tipo bigint generada por identidad. Los importes monetarios utilizan numeric para preservar precisión; las fechas de negocio se almacenan como date, sin hora. Los códigos e identificaciones se guardan como texto para conservar su formato.
 
 El sistema evita repetir el cliente en comprobante porque se obtiene desde contrato. La provincia de una distribución se obtiene desde categoria_fiscal. La cuenta sugerida del contrato y la cuenta efectiva del documento tienen significados distintos. El total del comprobante es una columna generada, por lo que no se mantiene manualmente una segunda suma.
 
