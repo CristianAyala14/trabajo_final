@@ -1,84 +1,130 @@
-const clienteService = require("../services/cliente");
 
-const getAll = async (req, res) => {
-    try {
-        const clientes = await clienteService.getAll();
+const clienteService = require("../services/Cliente");
 
-        res.status(200).json(clientes);
-    } catch (error) {
-        res.status(500).json({
-            error: error.message
-        });
-    }
+const listarClientes = async (req, res) => {
+  try {
+    const clientes = await clienteService.listarClientes();
+    return res.status(200).json(clientes);
+  } catch (error) {
+    return res.status(500).json({
+      mensaje: "Error al listar clientes",
+      error: error.message,
+    });
+  }
 };
 
-const getById = async (req, res) => {
-    try {
-        const { id } = req.params;
+const obtenerClientePorId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const cliente = await clienteService.obtenerClientePorId(id);
 
-        const cliente = await clienteService.getById(id);
-
-        if (!cliente) {
-            return res.status(404).json({
-                error: "Cliente no encontrado"
-            });
-        }
-
-        res.status(200).json(cliente);
-    } catch (error) {
-        res.status(500).json({
-            error: error.message
-        });
+    if (!cliente) {
+      return res.status(404).json({
+        mensaje: "Cliente no encontrado",
+      });
     }
+
+    return res.status(200).json(cliente);
+  } catch (error) {
+    return res.status(500).json({
+      mensaje: "Error al obtener el cliente",
+      error: error.message,
+    });
+  }
 };
 
-const create = async (req, res) => {
-    try {
-        const datos = req.body;
+const crearCliente = async (req, res) => {
+  try {
+    const nuevoCliente = await clienteService.crearCliente(req.body);
 
-        const cliente = await clienteService.create(datos);
-
-        res.status(201).json(cliente);
-    } catch (error) {
-        res.status(400).json({
-            error: error.message
-        });
+    return res.status(201).json(nuevoCliente);
+  } catch (error) {
+    if (error.name === "SequelizeUniqueConstraintError") {
+      return res.status(409).json({
+        mensaje: "La identificación fiscal ya existe",
+      });
     }
+
+    if (
+      error.name === "SequelizeValidationError" ||
+      error.name === "SequelizeForeignKeyConstraintError"
+    ) {
+      return res.status(400).json({
+        mensaje: "Los datos enviados no son válidos",
+        error: error.message,
+      });
+    }
+
+    return res.status(500).json({
+      mensaje: "Error al crear el cliente",
+      error: error.message,
+    });
+  }
 };
 
-const update = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const datos = req.body;
+const actualizarCliente = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const cliente = await clienteService.actualizarCliente(id, req.body);
 
-        const cliente = await clienteService.update(id, datos);
-
-        res.status(200).json(cliente);
-    } catch (error) {
-        res.status(404).json({
-            error: error.message
-        });
+    if (!cliente) {
+      return res.status(404).json({
+        mensaje: "Cliente no encontrado o inactivo",
+      });
     }
+
+    return res.status(200).json(cliente);
+  } catch (error) {
+    if (error.name === "SequelizeUniqueConstraintError") {
+      return res.status(409).json({
+        mensaje: "La identificación fiscal ya existe",
+      });
+    }
+
+    if (
+      error.name === "SequelizeValidationError" ||
+      error.name === "SequelizeForeignKeyConstraintError"
+    ) {
+      return res.status(400).json({
+        mensaje: "Los datos enviados no son válidos",
+        error: error.message,
+      });
+    }
+
+    return res.status(500).json({
+      mensaje: "Error al actualizar el cliente",
+      error: error.message,
+    });
+  }
 };
 
-const deactivate = async (req, res) => {
-    try {
-        const { id } = req.params;
+const eliminarCliente = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const cliente = await clienteService.eliminarCliente(id);
 
-        const cliente = await clienteService.deactivate(id);
-
-        res.status(200).json(cliente);
-    } catch (error) {
-        res.status(404).json({
-            error: error.message
-        });
+    if (!cliente) {
+      return res.status(404).json({
+        mensaje: "Cliente no encontrado o ya inactivo",
+      });
     }
+
+    return res.status(200).json({
+      mensaje: "Cliente desactivado correctamente",
+      cliente,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      mensaje: "Error al desactivar el cliente",
+      error: error.message,
+    });
+  }
 };
 
 module.exports = {
-    getAll,
-    getById,
-    create,
-    update,
-    deactivate
+  listarClientes,
+  obtenerClientePorId,
+  crearCliente,
+  actualizarCliente,
+  eliminarCliente,
 };

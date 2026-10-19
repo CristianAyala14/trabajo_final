@@ -15,6 +15,11 @@ module.exports = (sequelize) => {
         allowNull: true,
         field: "provincia_id",
       },
+       activo: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
+      },
 
       nombre: {
         type: DataTypes.STRING,

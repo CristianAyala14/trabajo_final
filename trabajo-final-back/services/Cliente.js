@@ -1,41 +1,47 @@
-const { Cliente } = require("../db");
 
-const getAll = async () => {
-    return await Cliente.findAll();
+const { cliente } = require("../models");
+
+const listarClientes = async () => {
+  return await cliente.findAll({
+    where: { activo: true },
+    order: [["id", "ASC"]],
+  });
 };
 
-const getById = async (id) => {
-    return await Cliente.findByPk(id);
+const obtenerClientePorId = async (id) => {
+  return await cliente.findByPk(id);
 };
 
-const create = async (datos) => {
-    return await Cliente.create(datos);
+const crearCliente = async (datos) => {
+  return await cliente.create(datos);
 };
 
-const update = async (id, datos) => {
-    const cliente = await Cliente.findByPk(id);
+const actualizarCliente = async (id, datos) => {
+  const registro = await cliente.findByPk(id);
 
-    if (!cliente) {
-        throw new Error("Cliente no encontrado");
-    }
+  if (!registro || !registro.activo) {
+    return null;
+  }
 
-    return await cliente.update(datos);
+  await registro.update(datos);
+  return registro;
 };
 
-const deactivate = async (id) => {
-    const cliente = await Cliente.findByPk(id);
+const eliminarCliente = async (id) => {
+  const registro = await cliente.findByPk(id);
 
-    if (!cliente) {
-        throw new Error("Cliente no encontrado");
-    }
+  if (!registro || !registro.activo) {
+    return null;
+  }
 
-    return await cliente.update({ activo: false });
+  await registro.update({ activo: false });
+  return registro;
 };
 
 module.exports = {
-    getAll,
-    getById,
-    create,
-    update,
-    deactivate
+  listarClientes,
+  obtenerClientePorId,
+  crearCliente,
+  actualizarCliente,
+  eliminarCliente,
 };

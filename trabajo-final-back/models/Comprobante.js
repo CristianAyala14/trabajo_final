@@ -78,6 +78,11 @@ module.exports = (sequelize) => {
         allowNull: true,
         field: "importe_total",
       },
+        activo: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
+      }
     },
     {
       tableName: "comprobante",

@@ -9,6 +9,11 @@ module.exports = (sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
+      activo: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
+      },
 
       nombre: {
         type: DataTypes.STRING,
