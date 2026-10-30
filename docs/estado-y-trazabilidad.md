@@ -21,6 +21,7 @@ La validación técnica de aceptación debe cubrir RNF01, RNF02 y RNF03 especial
 
 ## Actualización documental de la segunda entrega
 
-Se completaron el DER y la verificación del diagrama de clases. La plataforma documentada es PostgreSQL. Esta revisión es documental; no acredita ejecución de pruebas ni despliegue. La descripción de la interfaz inicial corresponde a la entrega previamente revisada.
+Se completaron los diagramas, CU07 a CU10 y la matriz bidireccional de 16 RF, 10 CU, 14 RN y 9 tablas. Esta revisión es documental; no acredita ejecución de pruebas ni despliegue. La descripción de la interfaz inicial corresponde a la entrega previamente revisada.
 
 - [Validación de diagramas](diagramas/validacion.md).
+- [Matriz bidireccional RF CU RN BD](matriz-trazabilidad.md).
