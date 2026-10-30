@@ -115,3 +115,49 @@ El actor principal de todos los casos es el **operador administrativo**. No se e
 **Alternativa:** si los datos cambiaron y el informe tributario presenta incidencias, la exportación se bloquea con el detalle del problema. Un error de conexión se informa como tal.
 
 **Resultado:** un archivo que corresponde a los criterios de la consulta y conserva los importes como valores numéricos.
+
+## CU07 Administrar clientes y contratos
+
+**Referencias:** RF01 y RF02. **Precondición:** los catálogos opcionales elegidos existen.
+
+1. El operador registra o consulta un cliente y sus datos disponibles.
+2. Crea o modifica un contrato del cliente, indicando número, vigencia opcional y cuenta sugerida.
+3. El sistema valida nombre, identificación fiscal si está informada, unicidad del contrato y orden de fechas.
+4. Guarda la operación y muestra el registro actualizado.
+5. Si se solicita desactivación, conserva referencias e impide nuevas selecciones donde corresponda.
+
+**Alternativas:** rechaza identificación o contrato duplicados, nombre vacío y fecha final sin inicio o anterior a este. Los registros referenciados no se eliminan. **Resultado:** clientes y contratos consistentes, con historial de documentos conservado.
+
+## CU08 Administrar catálogos y alícuotas
+
+**Referencias:** RF04 y RF05. **Precondición:** existe la provincia elegida para una categoría imponible.
+
+1. El operador selecciona cuenta, centro, provincia o categoría.
+2. Ingresa o modifica código, nombre y, para la categoría, provincia, condición imponible y tasa.
+3. El sistema verifica unicidad y dominios. Si cambia una tasa, informa el efecto sobre reportes históricos recalculados.
+4. Guarda los cambios; una tasa imponible ausente queda identificada como pendiente.
+5. Las cuentas y centros pueden desactivarse conservando sus referencias.
+
+**Alternativas:** rechaza códigos o nombres únicos repetidos, tasa fuera de 0 a 1 y categoría imponible sin provincia. No permite borrar datos referenciados. **Resultado:** catálogos disponibles y configuración fiscal explícita, sin historial de tasas.
+
+## CU09 Definir un período de servicio
+
+**Referencia:** RF03. **Precondición:** el operador conoce el intervalo operativo.
+
+1. Ingresa nombre y fechas inclusivas de inicio y fin.
+2. El sistema verifica nombre y orden de fechas.
+3. Guarda el período y lo ofrece para asignación explícita a documentos.
+
+**Alternativa:** rechaza un fin anterior al inicio. Compartir fechas con otro período no asigna documentos automáticamente. **Resultado:** período disponible, independiente del mes de emisión.
+
+## CU10 Buscar y consultar comprobantes
+
+**Referencias:** RF11 y RF12. **Precondición:** el operador accede al listado.
+
+1. Ingresa texto o filtros de tipo, estado, fechas, período, contrato o cuenta.
+2. Puede seleccionar conjuntamente provincia y centro; ambos deben corresponder a una misma fila de distribución.
+3. El sistema valida el rango y devuelve una página de documentos sin duplicar cabeceras.
+4. El operador abre el detalle para consultar importes, estado, origen y distribución.
+
+**Alternativas:** sin coincidencias se informa ausencia de datos; un error de conexión no se presenta como un total cero. **Resultado:** listado y detalle que respetan los filtros, incluidos estados administrativos cuando se soliciten.
+
