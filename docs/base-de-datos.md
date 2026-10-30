@@ -167,3 +167,8 @@ Los CHECK controlan textos obligatorios no vacíos, orden de fechas, tipos y est
 | distribucion_comprobante_centro_idx | centro_costo_id | Filtrado por centro |
 
 Las restricciones PK y UNIQUE ya crean índices. La unicidad de contrato comienza por cliente_id y la de distribución por comprobante_id, por lo que también ayudan a esas consultas. La utilidad de índices adicionales debe confirmarse con el volumen de prueba y los planes de ejecución.
+
+## Correspondencia y revisión
+
+El [DER completo](diagramas/entidad-relacion.md) incluye los 54 campos. La [matriz bidireccional](matriz-trazabilidad.md) permite consultar qué RF afectan a cada tabla. Las reglas entre registros requieren servicios transaccionales y no se consideran verificadas por la sola existencia de FK o vistas.
+
