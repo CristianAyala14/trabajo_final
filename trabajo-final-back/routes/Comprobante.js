@@ -2,7 +2,7 @@
 const express = require("express");
 const router = express.Router();
 
-const comprobanteController = require("../controllers/comprobante.controller");
+const comprobanteController = require("../controllers/Comprobante");
 
 router.get("/", comprobanteController.listar);
 router.get("/:id", comprobanteController.obtenerPorId);

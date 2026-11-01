@@ -1,5 +1,5 @@
 
-const { distribucionFiscal } = require("../models");
+const { DistribucionFiscal: distribucionFiscal } = require("../db");
 
 const listarDistribucionesFiscales = async () => {
   return await distribucionFiscal.findAll({

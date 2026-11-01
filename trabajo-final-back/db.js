@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ path: require("path").join(__dirname, ".env"), quiet: true });
 
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
@@ -6,9 +6,15 @@ const path = require("path");
 
 const { DB_URL } = process.env;
 
-const sequelize = new Sequelize(`${DB_URL}`, {
+if (!DB_URL || !/^postgres(?:ql)?:\/\//.test(DB_URL)) {
+  throw new Error("Configurá DB_URL con una URL de PostgreSQL en trabajo-final-back/.env");
+}
+
+const sequelize = new Sequelize(DB_URL, {
   logging: false,
   native: false,
+  dialectOptions: { connectionTimeoutMillis: 5000 },
+  pool: { acquire: 10000 },
 });
 
 const basename = path.basename(__filename);

@@ -1,5 +1,5 @@
 
-const { provincia } = require("../models");
+const { Provincia: provincia } = require("../db");
 
 const listarProvincias = async () => {
   return await provincia.findAll({

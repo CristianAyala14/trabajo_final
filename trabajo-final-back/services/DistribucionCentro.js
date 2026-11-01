@@ -1,5 +1,5 @@
 
-const { distribucionCentro } = require("../models");
+const { DistribucionCentro: distribucionCentro } = require("../db");
 
 const listarDistribucionesCentro = async () => {
   return await distribucionCentro.findAll({

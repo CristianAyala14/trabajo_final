@@ -1,5 +1,5 @@
 
-const { categoriaFiscal } = require("../models");
+const { CategoriaFiscal: categoriaFiscal } = require("../db");
 
 const listarCategoriasFiscales = async () => {
   return await categoriaFiscal.findAll({

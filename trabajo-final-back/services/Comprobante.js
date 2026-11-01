@@ -1,5 +1,5 @@
 
-const { comprobante } = require("../models");
+const { Comprobante: comprobante } = require("../db");
 
 const listar = async () => {
   return await comprobante.findAll({

@@ -1,35 +1,29 @@
 
 const express = require("express");
-const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const cors = require("cors");
-const coockeParser = require("cookie-parser");
 
-require("dotenv").config();
-require("./db.js");
+const { conn } = require("./db");
 
 const server = express();
 
 server.name = "API";
 
 // Middlewares
-server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
-server.use(bodyParser.json({ limit: "50mb" }));
+server.use(express.urlencoded({ extended: true, limit: "50mb" }));
+server.use(express.json({ limit: "50mb" }));
 server.use(morgan("dev"));
 
-// Configuración CORS
-server.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  res.header(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  next();
+// Origen del frontend local
+server.use(cors({ origin: process.env.FRONTEND_URL || "http://localhost:5173" }));
+
+server.get("/health", async (req, res) => {
+  try {
+    await conn.authenticate();
+    res.status(200).json({ estado: "ok", baseDeDatos: "conectada" });
+  } catch {
+    res.status(503).json({ estado: "no_disponible", baseDeDatos: "desconectada" });
+  }
 });
 
 // Rutas

@@ -1,5 +1,5 @@
 
-const { cliente } = require("../models");
+const { Cliente: cliente } = require("../db");
 
 const listarClientes = async () => {
   return await cliente.findAll({
