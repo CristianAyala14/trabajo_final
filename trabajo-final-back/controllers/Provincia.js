@@ -18,7 +18,7 @@ const obtenerProvinciaPorId = async (req, res) => {
     const { id } = req.params;
     const provincia = await provinciaService.obtenerProvinciaPorId(id);
 
-    if (!provincia || !provincia.activo) {
+    if (!provincia) {
       return res.status(404).json({
         mensaje: "Provincia no encontrada",
       });
@@ -113,12 +113,15 @@ const eliminarProvincia = async (req, res) => {
     }
 
     return res.status(200).json({
-      mensaje: "Provincia desactivada correctamente",
+      mensaje: "Provincia eliminada correctamente",
       provincia,
     });
   } catch (error) {
+    if (error.name === "SequelizeForeignKeyConstraintError") {
+      return res.status(409).json({ mensaje: "No se puede eliminar un registro utilizado por otros datos" });
+    }
     return res.status(500).json({
-      mensaje: "Error al desactivar la provincia",
+      mensaje: "Error al eliminar la provincia",
       error: error.message,
     });
   }

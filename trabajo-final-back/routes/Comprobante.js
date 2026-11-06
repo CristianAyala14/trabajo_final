@@ -9,6 +9,5 @@ router.get("/:id", comprobanteController.obtenerPorId);
 router.post("/", comprobanteController.crear);
 router.put("/:id", comprobanteController.actualizar);
 router.patch("/:id/anular", comprobanteController.anular);
-router.delete("/:id", comprobanteController.eliminar);
 
 module.exports = router;

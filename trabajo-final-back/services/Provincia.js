@@ -3,7 +3,6 @@ const { Provincia: provincia } = require("../db");
 
 const listarProvincias = async () => {
   return await provincia.findAll({
-    where: { activo: true },
     order: [["id", "ASC"]],
   });
 };
@@ -19,7 +18,7 @@ const crearProvincia = async (datos) => {
 const actualizarProvincia = async (id, datos) => {
   const registro = await provincia.findByPk(id);
 
-  if (!registro || !registro.activo) {
+  if (!registro) {
     return null;
   }
 
@@ -30,11 +29,11 @@ const actualizarProvincia = async (id, datos) => {
 const eliminarProvincia = async (id) => {
   const registro = await provincia.findByPk(id);
 
-  if (!registro || !registro.activo) {
+  if (!registro) {
     return null;
   }
 
-  await registro.update({ activo: false });
+  await registro.destroy();
   return registro;
 };
 

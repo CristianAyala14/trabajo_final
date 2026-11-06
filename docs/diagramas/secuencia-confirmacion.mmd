@@ -1,0 +1,27 @@
+sequenceDiagram
+    actor O as Operador
+    participant C as Controlador
+    participant S as ServicioComprobantes
+    participant DB as PostgreSQL mediante Sequelize
+    O->>C: Confirmar borrador
+    C->>S: confirmar(id)
+    S->>DB: BEGIN y bloquear comprobante
+    Note over S,DB: Edicion de distribuciones usa el mismo bloqueo de cabecera
+    S->>DB: Leer estado y distribuciones
+    S->>S: Validar neto positivo y suma exacta
+    opt NC o ND
+        S->>DB: Bloquear factura origen y leer notas confirmadas
+        S->>S: Validar origen, contrato, cuenta y motivo
+        opt NC
+            S->>S: Controlar limite acumulado de neto e IVA
+        end
+    end
+    alt Datos validos
+        S->>DB: Cambiar a CONFIRMADO y COMMIT
+        S-->>C: Documento confirmado
+        C-->>O: Confirmacion exitosa
+    else Validacion o persistencia falla
+        S->>DB: ROLLBACK
+        S-->>C: Error identificable
+        C-->>O: Informar motivo sin cambio parcial
+    end

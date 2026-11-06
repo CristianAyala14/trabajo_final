@@ -1,0 +1,15 @@
+sequenceDiagram
+    actor O as Operador
+    participant S as ServicioComprobantes
+    participant DB as PostgreSQL mediante Sequelize
+    O->>S: Anular comprobante
+    S->>DB: BEGIN y bloquear documento y origen aplicable
+    Note over S,DB: Compartir bloqueo de origen con confirmacion de notas
+    S->>DB: Consultar estado y notas confirmadas vinculadas
+    alt Factura con notas confirmadas o estado no permitido
+        S->>DB: ROLLBACK
+        S-->>O: Rechazar e indicar motivo
+    else Anulacion permitida
+        S->>DB: Actualizar estado a ANULADO y COMMIT
+        S-->>O: Documento conservado y excluido de informes
+    end

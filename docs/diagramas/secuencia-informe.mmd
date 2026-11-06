@@ -1,0 +1,30 @@
+sequenceDiagram
+    actor O as Operador
+    participant S as ServicioReportes
+    participant DB as PostgreSQL mediante Sequelize
+    participant E as ServicioExportacion
+    O->>S: Consultar fechas y filtros provincia y centro
+    S->>DB: BEGIN lectura con instantanea consistente
+    S->>DB: Controlar todos los confirmados del intervalo
+    alt Distribucion incompleta o tasa imponible faltante
+        DB-->>S: Documentos con incidencias
+        S->>DB: Finalizar lectura
+        S-->>O: Informe bloqueado con detalle
+    else Sin incidencias
+        S->>DB: Filtrar cruces, aplicar signo y redondeo por fila
+        DB-->>S: Filas y totales
+        S->>DB: Finalizar lectura
+        S-->>O: Reporte o ausencia de coincidencias
+        opt Exportar
+            O->>S: Solicitar exportacion con los mismos filtros
+            Note over S,DB: Repetir control y consulta en una misma instantanea
+            S->>DB: Obtener reporte actualizado y validado
+            alt Sigue siendo valido
+                DB-->>S: Resultado consistente
+                S->>E: Generar Excel con resultado y filtros
+                E-->>O: Archivo
+            else Nueva incidencia
+                S-->>O: Bloquear exportacion y mostrar motivo
+            end
+        end
+    end

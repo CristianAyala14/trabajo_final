@@ -251,6 +251,4 @@ El [diccionario de datos](../base-de-datos.md) documenta campos y restricciones.
 
 Las nueve clases persistentes se corresponden con las nueve tablas. Las once asociaciones representan las FK; `calcularTotal()` representa el campo generado `importe_total`. Las enumeraciones expresan dominios controlados mediante CHECK en la base, no tablas ni tipos ENUM físicos nuevos. Los servicios y objetos de respuesta no agregan tablas.
 
-Véase el [registro de validación](validacion.md) para el alcance de las comprobaciones.
-
-[Abrir clases como imagen ampliable](clases.svg).
+Véase el [registro de validación](validacion.md) para el alcance de las comprobaciones y las [secuencias](secuencias.md) para las operaciones que requieren coordinación transaccional.

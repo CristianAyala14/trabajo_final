@@ -56,8 +56,6 @@ const {
   CategoriaFiscal,
   CentroCosto,
   Comprobante,
-  DistribucionFiscal,
-  DistribucionCentro,
   DistribucionComprobante,
 } = sequelize.models;
 
@@ -71,10 +69,12 @@ const {
 
 Provincia.hasMany(Cliente, {
   foreignKey: "provinciaId",
+  onDelete: "RESTRICT",
 });
 
 Cliente.belongsTo(Provincia, {
   foreignKey: "provinciaId",
+  onDelete: "RESTRICT",
 });
 
 
@@ -82,10 +82,12 @@ Cliente.belongsTo(Provincia, {
 
 Provincia.hasMany(CategoriaFiscal, {
   foreignKey: "provinciaId",
+  onDelete: "RESTRICT",
 });
 
 CategoriaFiscal.belongsTo(Provincia, {
   foreignKey: "provinciaId",
+  onDelete: "RESTRICT",
 });
 
 
@@ -93,10 +95,12 @@ CategoriaFiscal.belongsTo(Provincia, {
 
 Cliente.hasMany(Contrato, {
   foreignKey: "clienteId",
+  onDelete: "RESTRICT",
 });
 
 Contrato.belongsTo(Cliente, {
   foreignKey: "clienteId",
+  onDelete: "RESTRICT",
 });
 
 
@@ -104,10 +108,12 @@ Contrato.belongsTo(Cliente, {
 
 CuentaContable.hasMany(Contrato, {
   foreignKey: "cuentaContableId",
+  onDelete: "RESTRICT",
 });
 
 Contrato.belongsTo(CuentaContable, {
   foreignKey: "cuentaContableId",
+  onDelete: "RESTRICT",
 });
 
 
@@ -115,10 +121,12 @@ Contrato.belongsTo(CuentaContable, {
 
 Contrato.hasMany(Comprobante, {
   foreignKey: "contratoId",
+  onDelete: "RESTRICT",
 });
 
 Comprobante.belongsTo(Contrato, {
   foreignKey: "contratoId",
+  onDelete: "RESTRICT",
 });
 
 
@@ -126,10 +134,12 @@ Comprobante.belongsTo(Contrato, {
 
 PeriodoServicio.hasMany(Comprobante, {
   foreignKey: "periodoServicioId",
+  onDelete: "RESTRICT",
 });
 
 Comprobante.belongsTo(PeriodoServicio, {
   foreignKey: "periodoServicioId",
+  onDelete: "RESTRICT",
 });
 
 
@@ -137,54 +147,12 @@ Comprobante.belongsTo(PeriodoServicio, {
 
 CuentaContable.hasMany(Comprobante, {
   foreignKey: "cuentaContableId",
+  onDelete: "RESTRICT",
 });
 
 Comprobante.belongsTo(CuentaContable, {
   foreignKey: "cuentaContableId",
-});
-
-
-// Comprobante -> DistribucionFiscal
-
-Comprobante.hasMany(DistribucionFiscal, {
-  foreignKey: "comprobanteId",
-});
-
-DistribucionFiscal.belongsTo(Comprobante, {
-  foreignKey: "comprobanteId",
-});
-
-
-// CategoriaFiscal -> DistribucionFiscal
-
-CategoriaFiscal.hasMany(DistribucionFiscal, {
-  foreignKey: "categoriaFiscalId",
-});
-
-DistribucionFiscal.belongsTo(CategoriaFiscal, {
-  foreignKey: "categoriaFiscalId",
-});
-
-
-// Comprobante -> DistribucionCentro
-
-Comprobante.hasMany(DistribucionCentro, {
-  foreignKey: "comprobanteId",
-});
-
-DistribucionCentro.belongsTo(Comprobante, {
-  foreignKey: "comprobanteId",
-});
-
-
-// CentroCosto -> DistribucionCentro
-
-CentroCosto.hasMany(DistribucionCentro, {
-  foreignKey: "centroCostoId",
-});
-
-DistribucionCentro.belongsTo(CentroCosto, {
-  foreignKey: "centroCostoId",
+  onDelete: "RESTRICT",
 });
 
 
@@ -192,10 +160,12 @@ DistribucionCentro.belongsTo(CentroCosto, {
 
 Comprobante.hasMany(DistribucionComprobante, {
   foreignKey: "comprobanteId",
+  onDelete: "RESTRICT",
 });
 
 DistribucionComprobante.belongsTo(Comprobante, {
   foreignKey: "comprobanteId",
+  onDelete: "RESTRICT",
 });
 
 
@@ -203,10 +173,12 @@ DistribucionComprobante.belongsTo(Comprobante, {
 
 CategoriaFiscal.hasMany(DistribucionComprobante, {
   foreignKey: "categoriaFiscalId",
+  onDelete: "RESTRICT",
 });
 
 DistribucionComprobante.belongsTo(CategoriaFiscal, {
   foreignKey: "categoriaFiscalId",
+  onDelete: "RESTRICT",
 });
 
 
@@ -214,10 +186,12 @@ DistribucionComprobante.belongsTo(CategoriaFiscal, {
 
 CentroCosto.hasMany(DistribucionComprobante, {
   foreignKey: "centroCostoId",
+  onDelete: "RESTRICT",
 });
 
 DistribucionComprobante.belongsTo(CentroCosto, {
   foreignKey: "centroCostoId",
+  onDelete: "RESTRICT",
 });
 
 
@@ -230,6 +204,7 @@ DistribucionComprobante.belongsTo(CentroCosto, {
 
 Comprobante.hasMany(Comprobante, {
   foreignKey: "facturaOrigenId",
+  onDelete: "RESTRICT",
   as: "notasRelacionadas",
 });
 
@@ -237,6 +212,7 @@ Comprobante.hasMany(Comprobante, {
 
 Comprobante.belongsTo(Comprobante, {
   foreignKey: "facturaOrigenId",
+  onDelete: "RESTRICT",
   as: "facturaOrigen",
 });
 

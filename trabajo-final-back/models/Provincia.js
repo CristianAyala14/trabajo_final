@@ -1,29 +1,12 @@
 const { DataTypes } = require("sequelize");
+const { textoObligatorio } = require("../utils/modelValidations");
 
 module.exports = (sequelize) => {
-  sequelize.define(
-    "provincia",
-    {
-      id: {
-        type: DataTypes.BIGINT,
-        primaryKey: true,
-        autoIncrement: true,
-      },
-      activo: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: true,
-      },
-
-      nombre: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-      },
-    },
-    {
-      tableName: "provincia",
-      timestamps: false,
-    }
-  );
+  sequelize.define("provincia", {
+    id: { type: DataTypes.BIGINT, allowNull: false, primaryKey: true, autoIncrement: true },
+    nombre: { type: DataTypes.STRING(100), allowNull: false, validate: { textoObligatorio }, unique: true }
+  }, {
+    tableName: "provincia",
+    timestamps: false
+  });
 };

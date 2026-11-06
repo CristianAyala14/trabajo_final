@@ -3,14 +3,13 @@ const { Comprobante: comprobante } = require("../db");
 
 const listar = async () => {
   return await comprobante.findAll({
-    where: { activo: true },
     order: [["id", "ASC"]],
   });
 };
 
 const obtenerPorId = async (id) => {
   return await comprobante.findOne({
-    where: { id, activo: true },
+    where: { id },
   });
 };
 
@@ -18,7 +17,6 @@ const crear = async (datos) => {
   return await comprobante.create({
     ...datos,
     estado: "BORRADOR",
-    activo: true,
   });
 };
 
@@ -27,8 +25,8 @@ const actualizar = async (id, datos) => {
 
   if (!registro) return null;
 
-  // El estado y la baja lógica se gestionan por separado.
-  const { id: ignorado, estado, activo, ...datosActualizables } = datos;
+  // El estado se gestiona mediante acciones específicas.
+  const { id: ignorado, estado, ...datosActualizables } = datos;
 
   await registro.update(datosActualizables);
 
@@ -51,21 +49,10 @@ const anular = async (id) => {
   return registro;
 };
 
-const eliminar = async (id) => {
-  const registro = await obtenerPorId(id);
-
-  if (!registro) return null;
-
-  await registro.update({ activo: false });
-
-  return registro;
-};
-
 module.exports = {
   listar,
   obtenerPorId,
   crear,
   actualizar,
   anular,
-  eliminar,
 };

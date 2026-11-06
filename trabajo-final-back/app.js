@@ -34,8 +34,6 @@ const cuentaContableRoutes = require("./routes/CuentaContable");
 const categoriaFiscalRoutes = require("./routes/CategoriaFiscal");
 const provinciaRoutes = require("./routes/Provincia");
 const periodoServicioRoutes = require("./routes/PeriodoServicio");
-const distribucionCentroRoutes = require("./routes/DistribucionCentro");
-const distribucionFiscalRoutes = require("./routes/DistribucionFiscal");
 const distribucionComprobanteRoutes = require("./routes/DistribucionComprobante");
 const comprobanteRoutes = require("./routes/Comprobante");
 
@@ -47,8 +45,6 @@ server.use("/cuentas-contables", cuentaContableRoutes);
 server.use("/categorias-fiscales", categoriaFiscalRoutes);
 server.use("/provincias", provinciaRoutes);
 server.use("/periodos-servicio", periodoServicioRoutes);
-server.use("/distribuciones-centro", distribucionCentroRoutes);
-server.use("/distribuciones-fiscales", distribucionFiscalRoutes);
 server.use("/distribuciones-comprobante", distribucionComprobanteRoutes);
 server.use("/comprobantes", comprobanteRoutes);
 

@@ -74,7 +74,7 @@ const actualizarCategoriaFiscal = async (req, res) => {
 
     if (!categoria) {
       return res.status(404).json({
-        mensaje: "Categoría fiscal no encontrada o inactiva",
+        mensaje: "Categoría fiscal no encontrada",
       });
     }
 
@@ -111,17 +111,20 @@ const eliminarCategoriaFiscal = async (req, res) => {
 
     if (!categoria) {
       return res.status(404).json({
-        mensaje: "Categoría fiscal no encontrada o ya inactiva",
+        mensaje: "Categoría fiscal no encontrada",
       });
     }
 
     return res.status(200).json({
-      mensaje: "Categoría fiscal desactivada correctamente",
+      mensaje: "Categoría fiscal eliminada correctamente",
       categoria,
     });
   } catch (error) {
+    if (error.name === "SequelizeForeignKeyConstraintError") {
+      return res.status(409).json({ mensaje: "No se puede eliminar un registro utilizado por otros datos" });
+    }
     return res.status(500).json({
-      mensaje: "Error al desactivar la categoría fiscal",
+      mensaje: "Error al eliminar la categoría fiscal",
       error: error.message,
     });
   }

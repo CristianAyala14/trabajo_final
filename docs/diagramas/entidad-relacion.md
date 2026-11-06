@@ -103,5 +103,3 @@ erDiagram
 - Los indicadores de opcionalidad no sustituyen las condiciones anteriores ni los controles transaccionales.
 
 El [diccionario](../base-de-datos.md) detalla tipos, valores predeterminados y restricciones. La [verificación de diagramas](validacion.md) identifica los controles realizados. El [archivo Mermaid](entidad-relacion.mmd) es editable.
-
-[Abrir DER como imagen ampliable](entidad-relacion.svg).

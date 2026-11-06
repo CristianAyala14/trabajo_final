@@ -3,7 +3,6 @@ const { CategoriaFiscal: categoriaFiscal } = require("../db");
 
 const listarCategoriasFiscales = async () => {
   return await categoriaFiscal.findAll({
-    where: { activo: true },
     order: [["id", "ASC"]],
   });
 };
@@ -19,7 +18,7 @@ const crearCategoriaFiscal = async (datos) => {
 const actualizarCategoriaFiscal = async (id, datos) => {
   const registro = await categoriaFiscal.findByPk(id);
 
-  if (!registro || !registro.activo) {
+  if (!registro) {
     return null;
   }
 
@@ -30,11 +29,11 @@ const actualizarCategoriaFiscal = async (id, datos) => {
 const eliminarCategoriaFiscal = async (id) => {
   const registro = await categoriaFiscal.findByPk(id);
 
-  if (!registro || !registro.activo) {
+  if (!registro) {
     return null;
   }
 
-  await registro.update({ activo: false });
+  await registro.destroy();
   return registro;
 };
 
