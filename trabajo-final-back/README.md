@@ -1,36 +1,40 @@
-# Backend
+# Backend del sistema de facturación
 
-Requiere Node.js 22 o superior y PostgreSQL con una base existente.
+El backend conecta la aplicación web con PostgreSQL. El módulo de clientes permite registrar los datos de cada titular, mantenerlos actualizados y consultar su historial aun cuando deje de operar.
 
-Desde esta carpeta:
+## Instalación e inicio
+
+El proyecto requiere Node.js 22 o superior y una base PostgreSQL existente. La instalación inicial se realiza desde la carpeta del backend:
 
 ```powershell
 npm ci
 Copy-Item .env.example .env
 ```
 
-Editá DB_URL en .env con tus credenciales y el nombre real de la base. No subas .env al repositorio.
+El archivo local `.env` contiene la configuración de la aplicación. La variable `DB_URL` indica el nombre de la base y las credenciales de conexión. Este archivo queda fuera del repositorio.
 
 ```powershell
 npm run dev
 ```
 
-La API local escucha en http://localhost:3001. El frontend se inicia por separado, en el origen configurado por FRONTEND_URL (por defecto http://localhost:5173).
+En desarrollo, la API se inicia en `http://localhost:3001` y se reinicia cuando cambia el código. El comando `npm start` la inicia sin recarga automática. El puerto se configura con `PORT`. El frontend se ejecuta por separado; su dirección se configura con `FRONTEND_URL` y por defecto es `http://localhost:5173`.
 
-- `npm start`: inicia sin recarga automática.
-- `npm test`: verifica carga de rutas, disponibilidad y CORS con conexión simulada, sin escribir en PostgreSQL.
-- `GET /health`: comprueba la conexión real; devuelve 200 si funciona o 503 si deja de estar disponible.
+## Gestión de clientes
 
-El inicio verifica la conexión antes de abrir el puerto. Si falla, revisá que PostgreSQL esté iniciado, que la base exista y que las credenciales sean correctas. PORT debe estar disponible.
+Para registrar un cliente solo se necesita el nombre. La razón social, la identificación fiscal, el teléfono, el domicilio, el correo y la provincia son opcionales. Si se informa una provincia, debe estar registrada. La identificación fiscal no puede repetirse, aunque el cliente que la tenga asignada esté inactivo.
 
-Este arranque no crea ni modifica tablas y no ejecuta sync. Una respuesta correcta de /health valida la conexión, no el esquema ni las operaciones de negocio. Las reglas transaccionales de comprobantes corresponden a cambios posteriores.
+| Operación | Ruta | Resultado |
+|---|---|---|
+| Alta | `POST /clientes` | Registra un cliente. Por ejemplo, basta con enviar `{"nombre": "Empresa Sur"}`. |
+| Listado | `GET /clientes` | Muestra los clientes activos. |
+| Consulta | `GET /clientes/:id` | Devuelve los datos del cliente, incluso si está inactivo. |
+| Edición | `PUT /clientes/:id` | Actualiza solo los campos enviados. Un campo opcional se puede vaciar con `null`. |
+| Baja | `DELETE /clientes/:id` | Desactiva al cliente y conserva sus datos y contratos. |
 
-## Correspondencia con el modelo documentado
+Solo los clientes activos pueden editarse o darse de baja. La API distingue entre datos inválidos (`400`), un cliente no disponible para la operación (`404`) y una identificación fiscal duplicada (`409`).
 
-Los nueve modelos representan los 54 campos de [la documentación de la base](../docs/base-de-datos.md). La única distribución vigente es distribucion_comprobante. Los comprobantes utilizan estado; no tienen activo ni endpoint DELETE. Provincia y categoría fiscal no tienen activo: su eliminación depende de las FK RESTRICT de PostgreSQL.
+## Base de datos y pruebas
 
-Las longitudes, precisiones, índices y asociaciones se declaran en los modelos. Las validaciones locales cubren fechas, importes, tipos, estados y campos condicionales. No sustituyen los CHECK, UNIQUE y FK del esquema SQL ni la validación transaccional entre registros (confirmación, suma de distribuciones, notas y anulación).
+Al iniciar, la API comprueba la conexión con PostgreSQL. Las tablas deben existir previamente: el inicio no crea ni modifica el esquema. La ruta `GET /health` permite consultar si la conexión sigue disponible. Las tablas, sus relaciones y las reglas de los importes se describen en el [diseño de la base de datos](../docs/base-de-datos.md).
 
-importe_total se lee como DECIMAL(21,2), pero no se envía en las escrituras: PostgreSQL debe tener la columna generada importe_neto + importe_iva. Su allowNull en Sequelize permite omitirla al crear, no define la nulabilidad física. Los ID se mapean como autoincrementales; la identidad se define en SQL. No usar sync para reconstruir el esquema: no reproduce la columna generada ni los CHECK.
-
-Este cambio no migra la base ni elimina sus tablas anteriores. Antes de usar datos reales hay que comprobar que el esquema instalado coincide con la documentación.
+Las pruebas se ejecutan con `npm test`. La prueba de integración de clientes recorre las operaciones de alta, consulta, edición y baja con PostgreSQL. Para incluirla, la variable de entorno `CLIENTES_TEST_DB_URL` debe apuntar a una base de pruebas con permiso para crear esquemas. La prueba utiliza un esquema temporal y lo elimina al finalizar. Si la variable no está definida, se ejecutan las demás pruebas.
