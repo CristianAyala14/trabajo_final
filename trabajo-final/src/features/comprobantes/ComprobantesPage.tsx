@@ -56,8 +56,8 @@ export default function ComprobantesPage() {
         <div className="brand"><span className="brand-symbol">f<span>.</span></span><div>folio<span>GESTIÓN DE FACTURACIÓN</span></div></div>
         <div className="workspace"><span className="workspace-icon"><Icon name="building" /></span><div>Mi empresa<small>Espacio de trabajo</small></div></div>
         <p className="nav-label">ADMINISTRACIÓN</p>
-        <nav><a className="nav-active" href="#contenido" aria-current="page"><Icon name="document" />Comprobantes<span className="nav-count">{comprobantesDemo.length}</span></a></nav>
-        <div className="upcoming"><p className="nav-label">PRÓXIMAMENTE</p><span><Icon name="building" />Clientes y contratos</span><span><Icon name="calendar" />Períodos de servicio</span><span><Icon name="layers" />Reportes</span></div>
+        <nav><a className="nav-active" href="#contenido" aria-current="page"><Icon name="document" />Comprobantes<span className="nav-count">{comprobantesDemo.length}</span></a><a href="#clientes"><Icon name="building" />Clientes</a></nav>
+        <div className="upcoming"><p className="nav-label">PRÓXIMAMENTE</p><span><Icon name="building" />Contratos</span><span><Icon name="calendar" />Períodos de servicio</span><span><Icon name="layers" />Reportes</span></div>
         <div className="sidebar-note"><span className="note-mark">↗</span><p>Todo en un mismo lugar.</p><small>Facturación y distribuciones, con una mirada más clara.</small></div>
         <div className="sidebar-bottom"><span className="status-dot" />Versión de diseño<span>01</span></div>
       </aside>
