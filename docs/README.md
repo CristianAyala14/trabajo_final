@@ -25,3 +25,5 @@ Los diagramas están escritos en Mermaid. Los archivos `.mmd` de la carpeta `dia
 ## Complementos de la segunda entrega
 
 - [Validación de diagramas](diagramas/validacion.md).
+- [Matriz bidireccional RF CU RN BD](matriz-trazabilidad.md).
+- [Secuencias críticas](diagramas/secuencias.md).

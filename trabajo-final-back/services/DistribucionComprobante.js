@@ -1,5 +1,5 @@
 
-const { distribucionComprobante } = require("../models");
+const { DistribucionComprobante: distribucionComprobante } = require("../db");
 
 const listarDistribucionesComprobante = async () => {
   return await distribucionComprobante.findAll({

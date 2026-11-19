@@ -1,5 +1,5 @@
 
-const { cuentaContable } = require("../models");
+const { CuentaContable: cuentaContable } = require("../db");
 
 const listarCuentasContables = async () => {
   return await cuentaContable.findAll({

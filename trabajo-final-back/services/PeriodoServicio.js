@@ -1,5 +1,5 @@
 
-const { periodoServicio } = require("../models");
+const { PeriodoServicio: periodoServicio } = require("../db");
 
 const listarPeriodosServicio = async () => {
   return await periodoServicio.findAll({

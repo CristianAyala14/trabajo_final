@@ -1,15 +1,27 @@
 # Frontend de gestión de facturación
 
-## Primera entrega: consulta de comprobantes
+La interfaz organiza la consulta de comprobantes y la gestión de clientes. El diseño se adapta a escritorio y celular.
 
-Rama: `feature/vista-comprobantes`. Diseño adaptable a escritorio y móvil, con
-la marca provisional **Folio**. No requiere variables de entorno.
+## Vistas disponibles
 
-- Listado de facturas, notas de crédito y débito con datos ficticios de septiembre de 2026.
-- Búsqueda por número, cliente, contrato o concepto, y filtros combinables por tipo, estado y emisión.
-- Neto e IVA del listado confirmado: facturas + ND − NC. Borradores/anulados no se suman.
-- Detalle en diálogo con cuenta, período, factura de origen y distribución categoría fiscal–centro.
-- Estados vacíos, rango de fechas inválido y distribución pendiente.
+- **Comprobantes:** listado de ejemplo con búsqueda, filtros y detalle de importes y distribución. Esta vista todavía utiliza datos ficticios.
+- **Clientes:** listado de clientes activos, búsqueda por nombre o identificación fiscal, alta, edición y desactivación con confirmación. Esta vista utiliza los datos del backend.
 
-Ejecutar `npm install` si faltan dependencias y `npm run dev` para iniciar.
-Comprobaciones: `npm run build` y `npm run lint`.
+La navegación se realiza desde el menú lateral. La vista de Clientes también está disponible en `http://localhost:5173/#clientes`.
+
+## Inicio
+
+Desde la carpeta del frontend:
+
+```powershell
+npm ci
+npm run dev
+```
+
+La gestión de Clientes requiere que el backend y PostgreSQL estén disponibles. En desarrollo, las solicitudes se envían al backend en `http://127.0.0.1:3001` mediante la configuración de Vite.
+
+Para otros entornos, la dirección pública de la API puede configurarse con `VITE_API_URL` antes de compilar. Esta variable no debe contener credenciales de base de datos. Sin ella, las solicitudes utilizan `/api`; el servidor que publique el frontend deberá dirigir esa ruta al backend.
+
+## Verificación
+
+`npm run build` genera la aplicación y comprueba TypeScript. `npm run lint` revisa el código.

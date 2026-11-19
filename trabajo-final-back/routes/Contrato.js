@@ -2,7 +2,7 @@
 const express = require("express");
 const router = express.Router();
 
-const contratoController = require("../controllers/contrato.controller");
+const contratoController = require("../controllers/Contrato");
 
 router.get("/", contratoController.listarContratos);
 router.get("/:id", contratoController.obtenerContratoPorId);

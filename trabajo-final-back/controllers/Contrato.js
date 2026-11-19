@@ -1,5 +1,5 @@
 
-const contratoService = require("../services/contrato.service");
+const contratoService = require("../services/Contrato");
 
 const listarContratos = async (req, res) => {
   try {

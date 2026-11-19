@@ -36,3 +36,8 @@ routes → controllers → services → modelos Sequelize → PostgreSQL
 La distribución se administra junto con el comprobante. Las confirmaciones y validaciones de notas se coordinan en un servicio y una misma transacción. No se exige una capa repository para esta etapa; puede incorporarse cuando las consultas complejas o repetidas justifiquen separarla.
 
 Esta organización es una propuesta de implementación. El [diagrama de clases](diagramas/clases.md) describe responsabilidades conceptuales y no obliga a escribir todos los servicios como clases de JavaScript.
+
+## Operaciones críticas y diagnóstico
+
+Los [diagramas de secuencia](diagramas/secuencias.md) detallan confirmación, anulación e informes consistentes. Los servicios coordinan transacciones y bloqueos mediante Sequelize. La implementación deberá permitir medir tiempos y distinguir errores de negocio de fallos técnicos, sin incorporar auditoría funcional al MVP.
+

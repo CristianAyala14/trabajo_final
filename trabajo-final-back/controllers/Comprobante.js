@@ -89,30 +89,10 @@ const anular = async (req, res) => {
   }
 };
 
-const eliminar = async (req, res) => {
-  try {
-    const registro = await comprobanteService.eliminar(req.params.id);
-
-    if (!registro) {
-      return res.status(404).json({
-        mensaje: "Comprobante no encontrado",
-      });
-    }
-
-    return res.status(200).json({
-      mensaje: "Comprobante dado de baja correctamente",
-      comprobante: registro,
-    });
-  } catch (error) {
-    return res.status(500).json({ mensaje: error.message });
-  }
-};
-
 module.exports = {
   listar,
   obtenerPorId,
   crear,
   actualizar,
   anular,
-  eliminar,
 };

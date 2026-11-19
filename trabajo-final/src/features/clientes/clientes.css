@@ -1,0 +1,48 @@
+.clientes-page .sidebar nav { margin-top: 40px; }
+.clientes-page main { max-width: 1300px; padding-bottom: 40px; }
+.clientes-heading { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-bottom:28px; }
+.clientes-heading p,.clientes-ayuda { color:var(--muted); font-size:14px; line-height:1.6; }
+.clientes-page button { padding:10px 15px; border:1px solid var(--border); background:white; font-size:14px; }
+.clientes-page button:disabled { cursor:wait; opacity:.6; }
+.clientes-page .clientes-primary { background:var(--green); color:white; border-color:var(--green); }
+.clientes-panel { background:white; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+.clientes-toolbar { padding:20px; display:flex; justify-content:space-between; align-items:center; gap:16px; border-bottom:1px solid var(--border); }
+.clientes-toolbar label { width:min(100%,400px); }
+.clientes-toolbar input { width:100%; padding:11px 13px; border:1px solid #b9c5be; background:white; }
+.clientes-toolbar>span { color:var(--muted); font-size:13px; white-space:nowrap; }
+.clientes-page td { max-width:320px; overflow-wrap:anywhere; }
+.clientes-page td small { display:block; margin-top:5px; color:var(--muted); }
+.clientes-row-actions { display:flex; gap:8px; }
+.clientes-row-actions button { padding:7px 10px; }
+.clientes-page .clientes-danger-link { color:#953b31; border-color:transparent; }
+.clientes-empty { padding:52px 24px; text-align:center; color:var(--muted); }
+.clientes-empty button { margin-top:16px; }
+.clientes-aviso { margin-bottom:18px; padding:12px 16px; background:#eaf3e9; border-radius:8px; font-size:14px; }
+.clientes-modal { width:min(640px,calc(100% - 32px)); max-height:90svh; border:1px solid var(--border); border-radius:12px; padding:28px; color:inherit; }
+.clientes-modal::backdrop { background:rgb(20 35 29 / .4); }
+.clientes-modal-heading { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:8px; }
+.clientes-modal h2 { font-size:23px; font-weight:600; }
+.clientes-modal-heading button { font-size:24px; padding:0 10px; border:0; }
+.clientes-campos { border:0; padding:0; margin:24px 0; display:grid; grid-template-columns:1fr 1fr; gap:18px; min-width:0; }
+.clientes-campos label { display:flex; flex-direction:column; gap:7px; font-size:14px; min-width:0; }
+.clientes-campos input,.clientes-campos select { width:100%; min-width:0; border:1px solid #b9c5be; padding:10px; color:inherit; background:white; }
+.clientes-modal-actions { display:flex; justify-content:flex-end; gap:10px; margin-top:24px; }
+.clientes-error { color:#8e3329; background:#fff2ee; padding:12px; border-radius:7px; margin-top:14px; font-size:14px; }
+.clientes-error button { margin-left:8px; }
+.clientes-confirmar { max-width:480px; }
+.clientes-confirmar p { margin-top:16px; line-height:1.65; }
+.clientes-page .clientes-danger { background:#943c32; color:white; border-color:#943c32; }
+@media(max-width:700px) {
+ .clientes-page .sidebar { width:auto; position:static; padding:16px 20px; display:flex; flex-direction:row; align-items:center; justify-content:space-between; }
+ .clientes-page .sidebar nav { margin:0; display:flex; }
+ .clientes-page .main-area { margin:0; }
+ .clientes-page .topbar { min-height:54px; padding:0 20px; }
+ .clientes-page main { padding:24px 16px; }
+ .clientes-heading { align-items:flex-start; }
+ .clientes-heading h1 { font-size:28px; }
+ .clientes-heading p { max-width:200px; }
+ .clientes-heading button { white-space:nowrap; }
+ .clientes-toolbar { align-items:stretch; flex-direction:column; }
+ .clientes-modal { padding:20px; }
+ .clientes-campos { grid-template-columns:1fr; }
+}

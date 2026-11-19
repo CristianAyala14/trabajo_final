@@ -1,5 +1,5 @@
 
-const { centroCosto } = require("../models");
+const { CentroCosto: centroCosto } = require("../db");
 
 const listarCentrosCosto = async () => {
   return await centroCosto.findAll({

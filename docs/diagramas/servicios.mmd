@@ -1,0 +1,32 @@
+classDiagram
+    direction LR
+
+    class ServicioComprobantes {
+        +guardarBorrador(datos) Id
+        +confirmar(comprobanteId) void
+        +anular(comprobanteId) void
+        +validarOrigenYLimites(comprobanteId) void
+    }
+
+    class ServicioReportes {
+        +listarComprobantes(filtros) ResultadoPaginado
+        +generarAsiento7(periodoId) Reporte
+        +generarAsiento13(periodoId) Reporte
+        +validarInformeFiscal(filtros) void
+        +generarIngresosBrutos(filtros) Reporte
+    }
+
+    class ServicioExportacion {
+        +exportarExcel(reporte) Archivo
+    }
+
+    class Comprobante
+    class DistribucionComprobante
+    class PeriodoServicio
+
+    ServicioComprobantes ..> Comprobante : valida y persiste
+    ServicioComprobantes ..> DistribucionComprobante : controla
+    ServicioReportes ..> Comprobante : consulta confirmados
+    ServicioReportes ..> DistribucionComprobante : agrupa y netea
+    ServicioReportes ..> PeriodoServicio : aplica ventanas
+    ServicioExportacion ..> ServicioReportes : utiliza resultados validados
